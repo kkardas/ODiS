@@ -26,7 +26,7 @@ export class ChartService {
 
   getHoursData(timestamp: string): Observable<Array<DayRecord>> {
     // return of(HoursData);
-    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${this.IP}/${timestamp}`)
+    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpDayPackets/${this.IP}/${timestamp}`)
       .pipe(
         tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
         catchError(this.handleError<DayRecord>(''))
@@ -35,7 +35,7 @@ export class ChartService {
 
   getMinutesData(timestamp: string): Observable<Array<DayRecord>> {
     // return of(MinutesData);
-    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${this.IP}/${timestamp}`)
+    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpHourPackets/${this.IP}/${timestamp}`)
       .pipe(
         tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
         catchError(this.handleError<DayRecord>(''))
