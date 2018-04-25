@@ -43,12 +43,12 @@ export class ChartService {
   }
 
   getServersList(): Observable<Array<AcctServer>> {
-    return of(ServersList);
-    // return this.http.get<Array<AcctServer>>(`${this.OdisUrl}/getAllAcct`)
-    //   .pipe(
-    //     tap((server: AcctServer[]) => this.logSuccess(`pobrano listę adresów IP`)),
-    //     catchError(this.handleError<AcctServer>(''))
-    //   );
+    // return of(ServersList);
+    return this.http.get<Array<AcctServer>>(`${this.OdisUrl}/getAllAcct`)
+      .pipe(
+        tap((server: AcctServer[]) => this.logSuccess(`pobrano listę adresów IP`)),
+        catchError(this.handleError<AcctServer>(''))
+      );
   }
 
   getYtTime(IP: string): Observable<Array<YtRecord>> {
