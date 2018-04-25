@@ -13,11 +13,11 @@ export class ChartService {
   private IP: string;
   OdisUrl = 'http://localhost:8080/acct';
 
-  getDaysData(): Observable<Array<DayRecord>> {
+  getDaysData(IP: string): Observable<Array<DayRecord>> {
     // console.log(this.IP)
     //
     // return of(DaysData);
-    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${this.IP}`)
+    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${IP}`)
       .pipe(
         tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
         catchError(this.handleError<DayRecord>(''))
@@ -43,12 +43,12 @@ export class ChartService {
   }
 
   getServersList(): Observable<Array<AcctServer>> {
-    // return of(ServersList);
-    return this.http.get<Array<AcctServer>>(`${this.OdisUrl}/getAllAcct`)
-      .pipe(
-        tap((server: AcctServer[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<AcctServer>(''))
-      );
+    return of(ServersList);
+    // return this.http.get<Array<AcctServer>>(`${this.OdisUrl}/getAllAcct`)
+    //   .pipe(
+    //     tap((server: AcctServer[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<AcctServer>(''))
+    //   );
   }
 
   getYtTime(IP: string): Observable<Array<YtRecord>> {
