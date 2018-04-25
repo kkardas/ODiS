@@ -14,6 +14,8 @@ export class ChartService {
   OdisUrl = 'http://localhost:8080/acct';
 
   getDaysData(): Observable<Array<DayRecord>> {
+    // console.log(this.IP)
+    //
     // return of(DaysData);
     return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${this.IP}`)
       .pipe(
@@ -51,7 +53,7 @@ export class ChartService {
 
   getYtTime(IP: string): Observable<Array<YtRecord>> {
     // return of(YtList);
-    return this.http.get<Array<YtRecord>>(`${this.OdisUrl}/getIpYoutubeAcct/$(IP)`)
+    return this.http.get<Array<YtRecord>>(`${this.OdisUrl}/getIpYoutubeAcct/${IP}`)
       .pipe(
         tap((server: YtRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
         catchError(this.handleError<YtRecord>(''))
@@ -60,7 +62,7 @@ export class ChartService {
 
   getBytes(IP: string): Observable<Array<ServerBytes>> {
     // return of(BytesList);
-    return this.http.get<Array<ServerBytes>>(`${this.OdisUrl}/getIpTraffic/$(IP)`)
+    return this.http.get<Array<ServerBytes>>(`${this.OdisUrl}/getIpTraffic/${IP}`)
       .pipe(
         tap((server: ServerBytes[]) => this.logSuccess(`pobrano listę adresów IP`)),
         catchError(this.handleError<ServerBytes>(''))
