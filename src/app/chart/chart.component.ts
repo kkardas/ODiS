@@ -34,11 +34,11 @@ export class ChartComponent implements OnInit {
   public getDaysData(): void {
     this.lineChartLabels = [];
     this.lineChartData = [{data: [], label: [this.IP]}];
-    this.chartService.getDaysData()
+    console.log("aaaaaa ", this.IP);
+    this.chartService.getDaysData(this.IP)
       .subscribe(records => {
         records.map(record => {
-          const date = new Date(Number(record.timestamp) * 1000);
-          this.lineChartLabels.push(date.getDate() + '.' + date.getMonth() + 1 + '.' + date.getFullYear());
+          this.lineChartLabels.push(record.timestamp);
           this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
@@ -49,12 +49,10 @@ export class ChartComponent implements OnInit {
   public getHoursData(timestamp: string): void {
     this.lineChartLabels = [];
     this.lineChartData = [{data: [], label: [this.IP]}];
-    const day = new Date(Number(timestamp) * 1000);
     this.chartService.getHoursData(timestamp)
       .subscribe(records => {
         records.map(record => {
-          const date = new Date(Number(record.timestamp) * 1000);
-          this.lineChartLabels.push(date.getDate() + '.' + date.getMonth() + 1 + '.' + date.getFullYear() + ' ' + date.getHours());
+          this.lineChartLabels.push(record.timestamp);
           this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
@@ -68,9 +66,7 @@ export class ChartComponent implements OnInit {
     this.chartService.getMinutesData(timestamp)
       .subscribe(records => {
         records.map(record => {
-          const date = new Date(Number(record.timestamp) * 1000);
-          this.lineChartLabels.push(
-            date.getDate() + '.' + date.getMonth() + 1 + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes());
+          this.lineChartLabels.push(record.timestamp);
           this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
