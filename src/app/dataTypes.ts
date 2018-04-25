@@ -19,14 +19,14 @@ export enum TYPE_OF_REQUEST {
 export class DayRecord {
   serwer: string;
   timestamp: string;
-  bits: number;
+  packets: number;
 
   public constructor (p_serwer: string,
                       p_time: string,
                       p_bits: number) {
     this.serwer = p_serwer;
     this.timestamp = p_time;
-    this.bits = p_bits;
+    this.packets = p_bits;
   }
 }
 

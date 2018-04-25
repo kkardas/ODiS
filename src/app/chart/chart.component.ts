@@ -39,7 +39,7 @@ export class ChartComponent implements OnInit {
         records.map(record => {
           const date = new Date(Number(record.timestamp) * 1000);
           this.lineChartLabels.push(date.getDate() + '.' + date.getMonth() + 1 + '.' + date.getFullYear());
-          this.lineChartData[0].data.push(record.bits);
+          this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
       });
@@ -55,7 +55,7 @@ export class ChartComponent implements OnInit {
         records.map(record => {
           const date = new Date(Number(record.timestamp) * 1000);
           this.lineChartLabels.push(date.getDate() + '.' + date.getMonth() + 1 + '.' + date.getFullYear() + ' ' + date.getHours());
-          this.lineChartData[0].data.push(record.bits);
+          this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
       });
@@ -71,7 +71,7 @@ export class ChartComponent implements OnInit {
           const date = new Date(Number(record.timestamp) * 1000);
           this.lineChartLabels.push(
             date.getDate() + '.' + date.getMonth() + 1 + '.' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes());
-          this.lineChartData[0].data.push(record.bits);
+          this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
       });

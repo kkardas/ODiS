@@ -15,17 +15,17 @@
       <tr>
         <th scope="row">{{i + 1}}</th>
         <td>
-          <button (click)="setIP(server)">
+          <button type="button" class="btn btn-primary" (click)="setIP(server)">
             {{server}}
           </button>
         </td>
         <td>
-          <button (click)="getConnections(server)">
+          <button type="button" class="btn btn-info" (click)="getConnections(server)">
             Pobierz połączenia
           </button>
         </td>
         <td>
-          <button (click)="getYT(server)">
+          <button type="button" class="btn btn-success" (click)="getYT(server)">
             Pobierz czas YT
           </button>
         </td>
