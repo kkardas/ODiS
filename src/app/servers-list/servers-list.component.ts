@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { ChartService } from '../chart.service';
-import {AcctServer, Server} from '../dataTypes';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-servers-list',
   templateUrl: './servers-list.component.html',
   styleUrls: ['./servers-list.component.css']
@@ -70,6 +70,10 @@ export class ServersListComponent implements OnInit {
             this.connections.set(record.server, record.bytes + temp);
           });
       });
+  }
+
+  public isSelected(server: string) {
+    return server === this.IP;
   }
 
 }

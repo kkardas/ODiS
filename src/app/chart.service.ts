@@ -16,57 +16,57 @@ export class ChartService {
   getDaysData(IP: string): Observable<Array<DayRecord>> {
     // console.log(this.IP)
     //
-    // return of(DaysData);
-    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${IP}`)
-      .pipe(
-        tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<DayRecord>(''))
-      );
+    return of(DaysData);
+    // return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${IP}`)
+    //   .pipe(
+    //     tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<DayRecord>(''))
+    //   );
   }
 
   getHoursData(timestamp: string): Observable<Array<DayRecord>> {
-    // return of(HoursData);
-    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpDayPackets/${this.IP}/${timestamp}`)
-      .pipe(
-        tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<DayRecord>(''))
-      );
+    return of(HoursData);
+    // return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpDayPackets/${this.IP}/${timestamp}`)
+    //   .pipe(
+    //     tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<DayRecord>(''))
+    //   );
   }
 
   getMinutesData(timestamp: string): Observable<Array<DayRecord>> {
-    // return of(MinutesData);
-    return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpHourPackets/${this.IP}/${timestamp}`)
-      .pipe(
-        tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<DayRecord>(''))
-      );
+    return of(MinutesData);
+    // return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpHourPackets/${this.IP}/${timestamp}`)
+    //   .pipe(
+    //     tap((server: DayRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<DayRecord>(''))
+    //   );
   }
 
   getServersList(): Observable<Array<AcctServer>> {
-    // return of(ServersList);
-    return this.http.get<Array<AcctServer>>(`${this.OdisUrl}/getAllAcct`)
-      .pipe(
-        tap((server: AcctServer[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<AcctServer>(''))
-      );
+    return of(ServersList);
+    // return this.http.get<Array<AcctServer>>(`${this.OdisUrl}/getAllAcct`)
+    //   .pipe(
+    //     tap((server: AcctServer[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<AcctServer>(''))
+    //   );
   }
 
   getYtTime(IP: string): Observable<Array<YtRecord>> {
-    // return of(YtList);
-    return this.http.get<Array<YtRecord>>(`${this.OdisUrl}/getIpYoutubeAcct/${IP}`)
-      .pipe(
-        tap((server: YtRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<YtRecord>(''))
-      );
+    return of(YtList);
+    // return this.http.get<Array<YtRecord>>(`${this.OdisUrl}/getIpYoutubeAcct/${IP}`)
+    //   .pipe(
+    //     tap((server: YtRecord[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<YtRecord>(''))
+    //   );
   }
 
   getBytes(IP: string): Observable<Array<ServerBytes>> {
-    // return of(BytesList);
-    return this.http.get<Array<ServerBytes>>(`${this.OdisUrl}/getIpTraffic/${IP}`)
-      .pipe(
-        tap((server: ServerBytes[]) => this.logSuccess(`pobrano listę adresów IP`)),
-        catchError(this.handleError<ServerBytes>(''))
-      );
+    return of(BytesList);
+    // return this.http.get<Array<ServerBytes>>(`${this.OdisUrl}/getIpTraffic/${IP}`)
+    //   .pipe(
+    //     tap((server: ServerBytes[]) => this.logSuccess(`pobrano listę adresów IP`)),
+    //     catchError(this.handleError<ServerBytes>(''))
+    //   );
   }
 
   setIp(IP: string) {

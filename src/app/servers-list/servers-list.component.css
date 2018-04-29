@@ -1,0 +1,12 @@
+#navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+}
+
+#list, #navbar {
+  width: 80%;
+  margin-left: 10%;
+}

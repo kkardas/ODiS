@@ -34,11 +34,10 @@ export class ChartComponent implements OnInit {
   public getDaysData(): void {
     this.lineChartLabels = [];
     this.lineChartData = [{data: [], label: [this.IP]}];
-    console.log("aaaaaa ", this.IP);
     this.chartService.getDaysData(this.IP)
       .subscribe(records => {
         records.map(record => {
-          this.lineChartLabels.push(record.timestamp);
+          this.lineChartLabels.push(record.timestamp.slice(0, 10));
           this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
@@ -52,7 +51,7 @@ export class ChartComponent implements OnInit {
     this.chartService.getHoursData(timestamp)
       .subscribe(records => {
         records.map(record => {
-          this.lineChartLabels.push(record.timestamp);
+          this.lineChartLabels.push(record.timestamp.slice(0, 10) + ':' + record.timestamp.slice(11, 13));
           this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
@@ -66,7 +65,7 @@ export class ChartComponent implements OnInit {
     this.chartService.getMinutesData(timestamp)
       .subscribe(records => {
         records.map(record => {
-          this.lineChartLabels.push(record.timestamp);
+          this.lineChartLabels.push(record.timestamp.slice(0, 10) + ':' + record.timestamp.slice(11, 16));
           this.lineChartData[0].data.push(record.packets);
           this.reloadChart();
         });
