@@ -4,9 +4,19 @@
   width: 100%;
   background-color: black;
   color: white;
+  opacity: 100;
+  z-index: 1;
 }
 
-#list, #navbar {
+#list, #date {
   width: 80%;
   margin-left: 10%;
+}
+
+app-chart {
+  max-width: 80vh;
+}
+
+#connections {
+  background: inherit;
 }

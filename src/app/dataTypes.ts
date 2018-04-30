@@ -16,6 +16,12 @@ export enum TYPE_OF_REQUEST {
   MINUTES
 }
 
+export enum OBJECT_TO_SHOW {
+  NONE,
+  CHART,
+  CONNECTIONS
+}
+
 export class DayRecord {
   serwer: string;
   timestamp: string;

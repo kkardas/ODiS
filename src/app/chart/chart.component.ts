@@ -74,7 +74,8 @@ export class ChartComponent implements OnInit {
   }
 
   public chartClicked(e: any): void {
-    if (e.active[0]._index &&
+    if (e.active[0] !== undefined &&
+        e.active[0]._index &&
         e.active[0]._index !== null) {
       if (this.dataTypeFlag === TYPE_OF_REQUEST.DAYS) {
         this.getHoursData(this.lineChartLabels[e.active[0]._index]);
@@ -85,7 +86,8 @@ export class ChartComponent implements OnInit {
   }
 
   public reloadChart() {
-    if (this.chart !== undefined) {
+    if (this.chart !== undefined &&
+        this.chart.chart !== undefined) {
       this.chart.chart.destroy();
       this.chart.chart = 0;
 

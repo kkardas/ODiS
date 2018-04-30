@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { ChartService } from '../chart.service';
+import {OBJECT_TO_SHOW} from '../dataTypes';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,14 +11,16 @@ import { ChartService } from '../chart.service';
 export class ServersListComponent implements OnInit {
 
   public IP = '';
-  public serversList: Map<string, number>;
+  public serversList: Map<string, string>;
   public YTDate: Date;
   public selectedServer: string;
   public connections: Map<string, number>;
+  public objecToBeShown: OBJECT_TO_SHOW;
 
   constructor(private chartService: ChartService) {
-    this.serversList = new Map<string, number>();
+    this.serversList = new Map<string, string>();
     this.connections = new Map<string, number>();
+    this.objecToBeShown = OBJECT_TO_SHOW.NONE;
   }
 
   ngOnInit() {
@@ -27,6 +30,7 @@ export class ServersListComponent implements OnInit {
   public setIP(IP: string) {
     this.IP = IP;
     this.chartService.setIp(IP);
+    this.objecToBeShown = OBJECT_TO_SHOW.CHART;
   }
 
   public getServersList() {
@@ -34,26 +38,32 @@ export class ServersListComponent implements OnInit {
       .subscribe(servers => {
         servers.map(
           server => {
-            this.serversList.set(server.ipSrc, 0);
-            this.serversList.set(server.ipDst, 0);
+            this.serversList.set(server.ipSrc, '');
+            this.serversList.set(server.ipDst, '');
           });
       });
   }
 
   public getYT(IP: string) {
-    let timeToAdd = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
     this.chartService.getYtTime(IP)
       .subscribe(records => {
         records.map(
           record => {
-            const start = new Date(record.startedWatching);
-            if (this.YTDate.toString() === start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)).slice(-2) + '-' + start.getDate()) {
-              timeToAdd += Number(record.timeSpent[0]) * 60 * 10 + Number(record.timeSpent[1]) * 60 + Number(record.timeSpent[3]) * 10 + Number(record.timeSpent[4]);
+            const dateStart = new Date(record.startedWatching);
+            const expectedStart = new Date(this.YTDate);
+            if (dateStart.getFullYear() === expectedStart.getFullYear() &&
+                dateStart.getMonth() === expectedStart. getMonth() &&
+                dateStart.getDate() === expectedStart.getDate()) {
+              hours += Number(record.timeSpent.slice(0, 2));
+              minutes += Number(record.timeSpent.slice(3, 5));
+              seconds += Number(record.timeSpent.slice(6, 8));
             }
           });
       });
-    console.log(timeToAdd.toString());
-    this.serversList.set(IP, timeToAdd);
+    this.serversList.set(IP, this.convertToTime(hours, minutes, seconds));
   }
 
   public getConnections(IP: string) {
@@ -70,10 +80,41 @@ export class ServersListComponent implements OnInit {
             this.connections.set(record.server, record.bytes + temp);
           });
       });
+    this.objecToBeShown = OBJECT_TO_SHOW.CONNECTIONS;
   }
 
-  public isSelected(server: string) {
-    return server === this.IP;
+  public isChartSelected(server: string) {
+    return server === this.IP && this.objecToBeShown === OBJECT_TO_SHOW.CHART;
+  }
+
+  public areConnectionsSelected(server: string) {
+    return server === this.IP && this.objecToBeShown === OBJECT_TO_SHOW.CONNECTIONS;
+  }
+
+  private convertToTime(hours: number,
+                        minutes: number,
+                        seconds: number) {
+
+
+    const hoursFromSeconds = Math.floor(seconds / 3600);
+    if (hoursFromSeconds > 0) {
+      seconds -= hoursFromSeconds * 3600;
+      hours += hoursFromSeconds;
+    }
+
+    const minutesFromSeconds = Math.floor(seconds / 60);
+    if (minutesFromSeconds > 0) {
+      seconds -= minutesFromSeconds * 60;
+      minutes += minutesFromSeconds;
+    }
+
+    const hoursFromMinutes = Math.floor(minutes / 60);
+    if (hoursFromMinutes > 0) {
+      minutes -= hoursFromMinutes * 60;
+      hours += hoursFromMinutes;
+    }
+
+    return hours.toString() + ':' + minutes.toString() + ':' + seconds.toString();
   }
 
 }
