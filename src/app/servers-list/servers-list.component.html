@@ -18,7 +18,7 @@
       </thead>
       <tbody *ngFor="let server of serversList.keys(); index as i">
         <tr>
-          <th scope="row">{{i + 1}}</th>
+          <td scope="row">{{i + 1}}</td>
           <td>
             <button type="button" class="btn btn-primary" (click)="setIP(server)">
               {{server}}
@@ -34,7 +34,6 @@
               Pobierz czas YT
             </button>
           </td>
-
           <td>
             {{serversList.get(server)}}
           </td>

@@ -6,7 +6,6 @@ import { of } from 'rxjs/observable/of';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 
-
 @Injectable()
 export class ChartService {
 
@@ -14,8 +13,6 @@ export class ChartService {
   OdisUrl = 'http://localhost:8080/acct';
 
   getDaysData(IP: string): Observable<Array<DayRecord>> {
-    // console.log(this.IP)
-    //
     // return of(DaysData);
     return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${IP}`)
       .pipe(
