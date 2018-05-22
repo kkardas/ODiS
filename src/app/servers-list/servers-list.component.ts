@@ -55,7 +55,7 @@ export class ServersListComponent implements OnInit {
             const dateStart = new Date(record.startedWatching);
             const expectedStart = new Date(this.YTDate);
             if (dateStart.getFullYear() === expectedStart.getFullYear() &&
-                dateStart.getMonth() === expectedStart. getMonth() &&
+                dateStart.getMonth() === expectedStart.getMonth() &&
                 dateStart.getDate() === expectedStart.getDate()) {
               hours += Number(record.timeSpent.slice(0, 2));
               minutes += Number(record.timeSpent.slice(3, 5));
@@ -67,6 +67,7 @@ export class ServersListComponent implements OnInit {
   }
 
   public getConnections(IP: string) {
+    this.IP = IP;
     this.selectedServer = IP;
     this.connections = new Map<string, number>();
     this.chartService.getBytes(IP)
