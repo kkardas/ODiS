@@ -44,9 +44,6 @@ export class ServersListComponent implements OnInit {
   }
 
   public getYT(IP: string) {
-    let hours = 0;
-    let minutes = 0;
-    let seconds = 0;
     this.chartService.getYtTime(IP)
       .subscribe(records => {
         records.map(
@@ -56,13 +53,13 @@ export class ServersListComponent implements OnInit {
             if (dateStart.getFullYear() === expectedStart.getFullYear() &&
                 dateStart.getMonth() === expectedStart.getMonth() &&
                 dateStart.getDate() === expectedStart.getDate()) {
-              hours += Number(record.timeSpent.slice(0, 2));
-              minutes += Number(record.timeSpent.slice(3, 5));
-              seconds += Number(record.timeSpent.slice(6, 8));
+              this.updateYtTime(Number(record.timeSpent.slice(0, 2)),
+                                Number(record.timeSpent.slice(3, 5)),
+                                Number(record.timeSpent.slice(6, 8)),
+                                IP);
             }
           });
       });
-    this.serversList.set(IP, this.convertToTime(hours, minutes, seconds));
   }
 
   public getConnections(IP: string) {
@@ -91,10 +88,19 @@ export class ServersListComponent implements OnInit {
     return server === this.IP && this.objecToBeShown === OBJECT_TO_SHOW.CONNECTIONS;
   }
 
-  private convertToTime(hours: number,
-                        minutes: number,
-                        seconds: number) {
-
+  private updateYtTime(hours: number,
+                       minutes: number,
+                       seconds: number,
+                       IP: string) {
+    console.log('hours1', hours)
+    console.log('minutes1', minutes)
+    console.log('seconds1', seconds)
+    const temp = this.serversList.get(IP);
+    if (temp !== '') {
+      hours += Number(temp.slice(0, 2));
+      minutes += Number(temp.slice(3, 5));
+      seconds += Number(temp.slice(6, 8));
+    }
 
     const hoursFromSeconds = Math.floor(seconds / 3600);
     if (hoursFromSeconds > 0) {
@@ -114,7 +120,30 @@ export class ServersListComponent implements OnInit {
       hours += hoursFromMinutes;
     }
 
-    return hours.toString() + ':' + minutes.toString() + ':' + seconds.toString();
+    let hours2 = '';
+    if (hours < 10) {
+      hours2 = '0' + hours.toString();
+    } else {
+      hours2 = hours.toString();
+    }
+
+
+    let minutes2 = '';
+    if (minutes < 10) {
+      minutes2 = '0' + minutes.toString();
+    } else {
+      minutes2 = minutes.toString();
+    }
+
+
+    let seconds2 = '';
+    if (seconds < 10) {
+      seconds2 = '0' + seconds.toString();
+    } else {
+      seconds2 = seconds.toString();
+    }
+    this.serversList.set(IP, hours2 + ':' + minutes2 + ':' + seconds2);
+    console.log(this.serversList.get(IP))
   }
 
 }
