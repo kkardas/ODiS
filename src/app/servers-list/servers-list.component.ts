@@ -44,6 +44,7 @@ export class ServersListComponent implements OnInit {
   }
 
   public getYT(IP: string) {
+    this.serversList.set(IP, '');
     this.chartService.getYtTime(IP)
       .subscribe(records => {
         records.map(
@@ -92,9 +93,6 @@ export class ServersListComponent implements OnInit {
                        minutes: number,
                        seconds: number,
                        IP: string) {
-    console.log('hours1', hours)
-    console.log('minutes1', minutes)
-    console.log('seconds1', seconds)
     const temp = this.serversList.get(IP);
     if (temp !== '') {
       hours += Number(temp.slice(0, 2));
@@ -143,7 +141,6 @@ export class ServersListComponent implements OnInit {
       seconds2 = seconds.toString();
     }
     this.serversList.set(IP, hours2 + ':' + minutes2 + ':' + seconds2);
-    console.log(this.serversList.get(IP))
   }
 
 }
