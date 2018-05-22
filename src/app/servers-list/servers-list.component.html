@@ -42,7 +42,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="5" class="col-md-12" [hidden]="!isChartSelected(server)">
+          <td colspan="5" class="col-md-12" *ngIf="isChartSelected(server)">
             <app-chart [IP]="IP"></app-chart>
           </td>
         </tr>

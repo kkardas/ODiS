@@ -108,9 +108,6 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
     this.dataTypeFlag = TYPE_OF_REQUEST.DAYS;
     this.getDaysData();
   }
