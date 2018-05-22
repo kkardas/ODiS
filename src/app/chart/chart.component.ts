@@ -40,10 +40,10 @@ export class ChartComponent implements OnInit {
         records.map(record => {
           this.lineChartLabels.push(record.timestamp.slice(0, 10));
           this.lineChartData[0].data.push(record.packets);
+          this.dataTypeFlag = TYPE_OF_REQUEST.DAYS;
           this.reloadChart();
         });
       });
-    this.dataTypeFlag = TYPE_OF_REQUEST.DAYS;
   }
 
   public getHoursData(timestamp: string): void {
@@ -59,10 +59,10 @@ export class ChartComponent implements OnInit {
         records.map(record => {
           this.lineChartLabels.push(record.timestamp.slice(0, 10) + ':' + record.timestamp.slice(11, 13));
           this.lineChartData[0].data.push(record.packets);
+          this.dataTypeFlag = TYPE_OF_REQUEST.HOURS;
           this.reloadChart();
         });
       });
-    this.dataTypeFlag = TYPE_OF_REQUEST.HOURS;
   }
 
   public getMinutesData(timestamp: string): void {
@@ -73,10 +73,10 @@ export class ChartComponent implements OnInit {
         records.map(record => {
           this.lineChartLabels.push(record.timestamp.slice(0, 10) + ':' + record.timestamp.slice(11, 16));
           this.lineChartData[0].data.push(record.packets);
+          this.dataTypeFlag = TYPE_OF_REQUEST.MINUTES;
           this.reloadChart();
         });
       });
-    this.dataTypeFlag = TYPE_OF_REQUEST.MINUTES;
   }
 
   public chartClicked(e: any): void {
