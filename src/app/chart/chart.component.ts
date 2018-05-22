@@ -27,6 +27,7 @@ export class ChartComponent implements OnInit {
   ];
   public lineChartLegend = true;
   public lineChartType = 'line';
+  public hoursTimestamp = '';
   @ViewChild('baseChart') chart: BaseChartDirective;
   private dataTypeFlag: TYPE_OF_REQUEST;
   @Input() IP: string;
@@ -46,6 +47,11 @@ export class ChartComponent implements OnInit {
   }
 
   public getHoursData(timestamp: string): void {
+    if (timestamp === undefined) {
+      timestamp = this.hoursTimestamp;
+    } else {
+      this.hoursTimestamp = timestamp;
+    }
     this.lineChartLabels = [];
     this.lineChartData = [{data: [], label: [this.IP]}];
     this.chartService.getHoursData(timestamp)
