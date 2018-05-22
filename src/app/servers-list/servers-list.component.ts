@@ -24,7 +24,6 @@ export class ServersListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getServersList();
   }
 
   public setIP(IP: string) {

@@ -2,10 +2,13 @@
   <div id="date">
     Wprowadź datę aby pobrać dane YT:
     <input [ngModel]="YTDate | date:'yyyy-MM-dd'" (ngModelChange)="YTDate = $event" type="date" name="startDate"/>
+    <button type="button" class="btn btn-primary" (click)="getServersList()">
+      Pobierz listę serwerów
+    </button>
   </div>
 </div>
 <div id="list">
-  <div >
+  <div>
     <table class="table table-hover">
       <thead>
       <tr>
