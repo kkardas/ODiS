@@ -94,12 +94,12 @@ export class ChartComponent implements OnInit {
   public reloadChart() {
     if (this.chart !== undefined &&
         this.chart.chart !== undefined) {
-      this.chart.chart.destroy();
-      this.chart.chart = 0;
-
-      this.chart.datasets = this.lineChartData;
-      this.chart.labels = this.lineChartLabels;
-      this.chart.ngOnInit();
+      // this.chart.chart.destroy();
+      // this.chart.chart = 0;
+      //
+      // this.chart.datasets = this.lineChartData;
+      // this.chart.labels = this.lineChartLabels;
+      this.chart.chart.update();
     }
   }
 
