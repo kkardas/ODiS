@@ -16,7 +16,9 @@ export class ChartService {
     // return of(DaysData);
     return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpTwoWeeksPackets/${IP}`)
       .pipe(
-        tap((server: DayRecord[]) => this.logSuccess(`pobrano dane dla dni, IP: ${IP}`)),
+        tap((server: DayRecord[]) => this.logSuccess(`pobrano dane dla dni, IP: ${IP}`),
+            () => console.log('error'),
+            () => console.log('ddd')),
         catchError(this.handleError<DayRecord>(''))
       );
   }
@@ -25,7 +27,9 @@ export class ChartService {
     // return of(HoursData);
     return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpDayPackets/${this.IP}/${timestamp}`)
       .pipe(
-        tap((server: DayRecord[]) => this.logSuccess(`pobrano dane dla godzin: ${timestamp}`)),
+        tap((server: DayRecord[]) => this.logSuccess(`pobrano dane dla godzin: ${timestamp}`),
+            () => console.log('error'),
+            () => console.log('ddd')),
         catchError(this.handleError<DayRecord>(''))
       );
   }
@@ -34,7 +38,9 @@ export class ChartService {
     // return of(MinutesData);
     return this.http.get<Array<DayRecord>>(`${this.OdisUrl}/getIpHourPackets/${this.IP}/${timestamp}`)
       .pipe(
-        tap((server: DayRecord[]) => this.logSuccess(`pobrano dane dla godziny: ${timestamp}`)),
+        tap((server: DayRecord[]) => this.logSuccess(`pobrano dane dla godziny: ${timestamp}`),
+          () => console.log('error'),
+          () => console.log('ddd')),
         catchError(this.handleError<DayRecord>(''))
       );
   }

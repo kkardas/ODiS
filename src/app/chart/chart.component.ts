@@ -2,6 +2,7 @@ import {Component, Input, OnInit, SimpleChange, SimpleChanges, ViewChild} from '
 import { ChartService } from '../chart.service';
 import {BaseChartDirective} from 'ng2-charts';
 import {TYPE_OF_REQUEST} from '../dataTypes';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-chart',
@@ -41,9 +42,14 @@ export class ChartComponent implements OnInit {
           this.lineChartLabels.push(record.timestamp.slice(0, 10));
           this.lineChartData[0].data.push(record.packets);
           this.dataTypeFlag = TYPE_OF_REQUEST.DAYS;
-          this.reloadChart();
-        });
-      });
+          console.log(record);
+          });
+      },
+        (err) => console.error(err),
+        () => {this.reloadChart();
+          console.log('days comp');
+          }
+        );
   }
 
   public getHoursData(timestamp: string): void {
@@ -62,7 +68,9 @@ export class ChartComponent implements OnInit {
           this.dataTypeFlag = TYPE_OF_REQUEST.HOURS;
           this.reloadChart();
         });
-      });
+      },
+        (err) => console.error(err),
+        () => this.reloadChart());
   }
 
   public getMinutesData(timestamp: string): void {
@@ -76,7 +84,9 @@ export class ChartComponent implements OnInit {
           this.dataTypeFlag = TYPE_OF_REQUEST.MINUTES;
           this.reloadChart();
         });
-      });
+      },
+        (err) => console.error(err),
+        () => this.reloadChart());
   }
 
   public chartClicked(e: any): void {
@@ -92,13 +102,18 @@ export class ChartComponent implements OnInit {
   }
 
   public reloadChart() {
+    if (this.chart === undefined){
+      console.log('char not found');
+    }
     if (this.chart !== undefined &&
         this.chart.chart !== undefined) {
-      // this.chart.chart.destroy();
-      // this.chart.chart = 0;
-      //
-      // this.chart.datasets = this.lineChartData;
-      // this.chart.labels = this.lineChartLabels;
+      console.log('ref');
+      this.chart.chart.destroy();
+      this.chart.chart = 0;
+
+      this.chart.datasets = this.lineChartData;
+      this.chart.labels = this.lineChartLabels;
+      // window.location.reload();
       this.chart.chart.update();
     }
   }
